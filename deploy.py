@@ -6,7 +6,7 @@ from os import system
 from os import popen
 import sys
 from time import sleep
-if (len(sys.argv) != 4) and (len(sys.argv) != 5):
+if (len(sys.argv) != 4) and (len(sys.argv) != 3):
     print('usage: %s ProjectPath ExposePort [timeout(120 for default, 0 to cancel timeout)]' % sys.argv[0])
     exit(0)
 
@@ -119,7 +119,7 @@ system('chmod +x ctf_xinetd/start.sh')
 if popen("docker images -q %s" % sys.argv[1]).read() == '':
     system('docker build -t "%s" ./ctf_xinetd'%sys.argv[1])
 else:
-    if_rm = input("\033[0;31mimage already exist, remove or just run it ?[rm/run]\n\033[0m")
+    if_rm = input("\033[0;31mimage already exist, remove or just run it?[rm/run]\n\033[0m")
     system('docker stop $(docker ps -aq --filter "name=%s")' % sys.argv[1])
     system('docker rm $(docker ps -aq --filter "name=%s")' % sys.argv[1])
     if if_rm == 'rm':
